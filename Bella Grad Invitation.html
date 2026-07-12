@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bella Ofwa — Graduation Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose-bg-1:#F4D9E1;
+    --rose-bg-2:#E7B9C8;
+    --blush:#FBEFF1;
+    --blush-2:#F5DEE3;
+    --blush-3:#EED0D8;
+    --rose:#C06E8E;
+    --rose-dark:#9C4A68;
+    --rose-deep:#7A3550;
+    --text:#4E2D3C;
+    --text-soft:#8A5C6D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    min-height:100dvh;
+    width:100%;
+    background:radial-gradient(ellipse at 50% 15%, var(--rose-bg-1) 0%, var(--rose-bg-2) 70%, #DDA3B6 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px 16px;
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .wrap{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+  .eyebrow-top{
+    color:var(--rose-deep);
+    letter-spacing:0.35em;
+    font-size:11px;
+    text-transform:uppercase;
+    opacity:0.75;
+  }
+  .scene{
+    perspective:2400px;
+    width:min(78vw,320px);
+    margin:0 auto;
+    touch-action:pan-y;
+  }
+  .book{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4.35;
+    max-height:64dvh;
+    margin:0 auto;
+    filter:drop-shadow(0 25px 40px rgba(122,53,80,0.35));
+  }
+  .spine{
+    position:absolute;
+    left:-6px; top:2%; bottom:2%;
+    width:14px;
+    background:linear-gradient(90deg,var(--rose-deep),var(--rose) 60%, transparent);
+    border-radius:6px 0 0 6px;
+    z-index:5;
+  }
+  .leaf{
+    position:absolute;
+    inset:0;
+    transform-style:preserve-3d;
+    transition:transform 0.95s cubic-bezier(.645,.045,.355,1);
+    transform-origin:left center;
+    cursor:pointer;
+  }
+  .leaf.flipped{ transform:rotateY(-178deg); }
+  .leaf.flipped .face:not(.back){ pointer-events:none; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:3px 10px 10px 3px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    padding:clamp(14px,3.6vw,30px) clamp(12px,3.6vw,26px);
+    text-align:center;
+  }
+  .face.back{ transform:rotateY(180deg); }
+  .face::after{
+    content:"";
+    position:absolute;
+    top:0; left:0; bottom:0;
+    width:26px;
+    background:linear-gradient(90deg, rgba(122,53,80,0.14), transparent);
+    pointer-events:none;
+  }
+  .face-cover{
+    background:linear-gradient(165deg,var(--blush) 0%, var(--blush-2) 55%, var(--blush-3) 100%);
+    color:var(--text);
+    justify-content:center;
+    align-items:center;
+    gap:4px;
+  }
+  .face-paper{
+    background:linear-gradient(170deg,var(--blush) 0%, var(--blush-2) 100%);
+    color:var(--text);
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+  }
+  .face-paper-alt{
+    background:linear-gradient(170deg,var(--blush-2) 0%, var(--blush-3) 100%);
+  }
+  .face-blank{
+    background:linear-gradient(170deg,var(--blush) 0%, var(--blush-2) 100%);
+  }
+  .bow{ width:56px; height:auto; margin-top:4px; }
+  .photo-frame{
+    width:clamp(120px,42vw,168px);
+    height:clamp(120px,42vw,168px);
+    border-radius:50%;
+    border:2px solid var(--rose);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    color:var(--text-soft);
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-align:center;
+    line-height:1.3;
+    margin:0 0 4px;
+    background:rgba(255,255,255,0.4);
+    box-shadow:0 6px 18px rgba(122,53,80,0.25);
+  }
+  .photo-frame img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .cover-eyebrow{
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-size:10px;
+    color:var(--rose-dark);
+  }
+  .cover-script{
+    font-family:'Beau Rivage', cursive;
+    font-size:clamp(28px,8vw,38px);
+    color:var(--rose-dark);
+    line-height:1;
+    margin:0;
+  }
+  .cover-name{
+    font-weight:600;
+    font-size:clamp(16px,4.8vw,20px);
+    letter-spacing:0.04em;
+    margin:2px 0 0;
+    text-transform:uppercase;
+  }
+  .cover-sub{
+    font-style:italic;
+    font-size:clamp(11px,3.2vw,13px);
+    color:var(--text-soft);
+    margin:0;
+  }
+  .sparkle-divider{
+    color:var(--rose);
+    font-size:11px;
+    letter-spacing:8px;
+    margin-top:2px;
+  }
+  .cover-hint{
+    position:absolute;
+    bottom:10px;
+    left:0; right:0;
+    text-align:center;
+    font-size:9px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-soft);
+    opacity:0.7;
+  }
+  .page-eyebrow{
+    font-size:10px;
+    letter-spacing:0.26em;
+    text-transform:uppercase;
+    color:var(--rose);
+  }
+  .page-title{
+    font-family:'Beau Rivage', cursive;
+    font-size:clamp(24px,7vw,30px);
+    color:var(--rose-dark);
+    margin:0;
+  }
+  .page-rule{
+    color:var(--rose);
+    font-size:10px;
+    letter-spacing:5px;
+    margin:1px 0 6px;
+  }
+  .page-line{ font-size:clamp(12px,3.4vw,14.5px); margin:1px 0; color:var(--text); }
+  .page-line b{ font-weight:600; }
+  .page-sub{
+    font-size:clamp(10.5px,3vw,12px);
+    color:var(--text-soft);
+    margin-top:1px;
+  }
+  .page-block{ margin-bottom:8px; }
+  .page-note{
+    font-style:italic;
+    font-size:clamp(10.5px,3vw,12.5px);
+    color:var(--text-soft);
+    margin-top:6px;
+    line-height:1.4;
+  }
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-top:4px;
+  }
+  .contact-links a{
+    color:var(--rose-dark);
+    text-decoration:none;
+    font-size:clamp(11.5px,3.2vw,13px);
+    border-bottom:1px solid var(--rose);
+    padding-bottom:1px;
+  }
+  .closing-name{
+    font-family:'Beau Rivage', cursive;
+    font-size:clamp(19px,5.4vw,24px);
+    color:var(--rose-dark);
+    margin-top:4px;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .arrow-btn{
+    width:42px;height:42px;
+    border-radius:50%;
+    border:1px solid var(--rose);
+    background:transparent;
+    color:var(--rose-dark);
+    font-size:18px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.2s, opacity 0.2s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .arrow-btn:hover{ background:rgba(192,110,142,0.15); }
+  .arrow-btn:disabled{ opacity:0.3; cursor:default; background:transparent; }
+  .dots{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:140px; }
+  .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:rgba(156,74,104,0.3);
+    transition:background 0.2s, transform 0.2s;
+  }
+  .dot.active{ background:var(--rose-dark); transform:scale(1.3); }
+  .swipe-hint{
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(156,74,104,0.6);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow-top">You're invited</div>
+
+  <div class="scene" id="scene">
+    <div class="book" id="book">
+      <div class="spine"></div>
+
+      <div class="leaf" id="leaf5" style="z-index:100;">
+        <div class="face face-paper">
+          <span class="page-eyebrow">With gratitude</span>
+          <div class="page-title">thank you</div>
+          <div class="page-rule">✦ ✦ ✦</div>
+          <p class="page-note">[A short personal note — thank the people who helped you get here, or share what this day means to you.]</p>
+          <div class="closing-name">— Bella Ofwa</div>
+        </div>
+        <div class="face face-blank back"></div>
+      </div>
+
+      <div class="leaf" id="leaf4" style="z-index:101;">
+        <div class="face face-paper">
+          <span class="page-eyebrow">Kindly respond</span>
+          <div class="page-title">rsvp</div>
+          <div class="page-rule">✦ ✦ ✦</div>
+          <div class="page-line">Please reply by <b>[RSVP DATE]</b></div>
+          <div class="contact-links">
+            <a href="https://wa.me/254797493308" target="_blank" rel="noopener">Message on WhatsApp</a>
+            <a href="tel:+254797493308">Call 0797 493 308</a>
+          </div>
+          <div class="page-note">Your presence would mean the world to me.</div>
+        </div>
+        <div class="face face-blank face-paper-alt back"></div>
+      </div>
+
+      <div class="leaf" id="leaf3" style="z-index:102;">
+        <div class="face face-paper">
+          <span class="page-eyebrow">The celebration</span>
+          <div class="page-title">reception</div>
+          <div class="page-rule">✦ ✦ ✦</div>
+          <div class="page-block">
+            <div class="page-line"><b>[RECEPTION DATE]</b></div>
+            <div class="page-sub">[START TIME] — [END TIME]</div>
+          </div>
+          <div class="page-block">
+            <div class="page-line">Public Service Club, Upperhill</div>
+            <div class="page-sub">[VENUE ADDRESS]</div>
+          </div>
+          <div class="page-note">Join us for food, music, and celebrating together.</div>
+        </div>
+        <div class="face face-blank back"></div>
+      </div>
+
+      <div class="leaf" id="leaf2" style="z-index:103;">
+        <div class="face face-paper">
+          <span class="page-eyebrow">The ceremony</span>
+          <div class="page-title">commencement</div>
+          <div class="page-rule">✦ ✦ ✦</div>
+          <div class="page-block">
+            <div class="page-line"><b>Friday 22nd August, 2026</b></div>
+            <div class="page-sub">[CEREMONY TIME]</div>
+          </div>
+          <div class="page-block">
+            <div class="page-line">Jomo Kenyatta University of Agriculture &amp; Technology</div>
+            <div class="page-sub">[VENUE ADDRESS]</div>
+          </div>
+          <div class="page-note">Seating opens [ARRIVAL TIME] — arrive early to find a seat.</div>
+        </div>
+        <div class="face face-blank face-paper-alt back"></div>
+      </div>
+
+      <div class="leaf" id="leaf1" style="z-index:104;">
+        <div class="face face-cover">
+          <div class="cover-eyebrow">Save the date</div>
+          <div class="photo-frame">
+            <!-- replace src below with your photo, e.g. src="me.jpg" -->
+            <span>your<br>photo</span>
+          </div>
+          <div class="cover-script">she did it!</div>
+          <div class="cover-name">Ofwa Neema Bella Omollo</div>
+          <div class="cover-sub">is graduating with a Bachelor of Architecture (B.Arch)</div>
+          <div class="sparkle-divider">✦</div>
+          <div class="cover-hint">tap or swipe to open</div>
+        </div>
+        <div class="face face-blank back"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="arrow-btn" id="prevBtn" aria-label="Previous page">&#8249;</button>
+    <div class="dots" id="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <button class="arrow-btn" id="nextBtn" aria-label="Next page">&#8250;</button>
+  </div>
+  <div class="swipe-hint">swipe, tap, or use the arrows</div>
+</div>
+
+<script>
+  const leaves = [
+    document.getElementById('leaf1'),
+    document.getElementById('leaf2'),
+    document.getElementById('leaf3'),
+    document.getElementById('leaf4'),
+    document.getElementById('leaf5')
+  ];
+  const dots = document.querySelectorAll('.dot');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const scene = document.getElementById('scene');
+  let flipped = 0;
+
+  function render(){
+    leaves.forEach((leaf, i) => {
+      const isFlipped = i < flipped;
+      leaf.classList.toggle('flipped', isFlipped);
+      leaf.style.zIndex = isFlipped ? (100 + i) : (100 + (leaves.length - i));
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === flipped));
+    prevBtn.disabled = flipped === 0;
+    nextBtn.disabled = flipped === leaves.length;
+  }
+
+  function next(){ if (flipped < leaves.length){ flipped++; render(); } }
+  function prev(){ if (flipped > 0){ flipped--; render(); } }
+
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  leaves.forEach(leaf => leaf.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    next();
+  }));
+
+  let touchStartX = 0, touchStartY = 0;
+  scene.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive:true});
+  scene.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  render();
+</script>
+
+</body>
+</html>
